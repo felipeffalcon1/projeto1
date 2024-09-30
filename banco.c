@@ -344,8 +344,8 @@ void autenticacao() {
     // Verificação de Login
     if (strcmp(cpf, "47997003835") == 0 && strcmp(senha, "123456") == 0) {
         printf("Login bem sucedido. Acesso liberado!\n");
-        carregar_saldo(&conta);  // Carrega o saldo a partir do arquivo
-        exibir_menu(&conta);     // Chama o menu principal com a conta carregada
+        carregar_saldo(&conta);  
+        exibir_menu(&conta);     
     } else {
         printf("Login inválido. Tente novamente.\n");
     }
@@ -353,7 +353,7 @@ void autenticacao() {
 
 
 int main() {
-    srand(time(NULL)); // Inicializa a semente aleatória
-    autenticacao();     // Chama a função de autenticação
+    srand(time(NULL)); 
+    autenticacao();     
     return 0;
     }
