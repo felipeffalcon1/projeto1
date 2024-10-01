@@ -232,14 +232,17 @@ void comprar_criptomoedas(Conta *conta) {
         conta->bitcoin += (valor_investido * 0.98) / conta->cotacao_bitcoin;
         printf("Quantidade de Bitcoin comprada: %.6f\n", conta->bitcoin);
         salvar_transacao("Compra", "Bitcoin");
+        exibir_menu(conta);
     } else if (coins == 2) {
         conta->ethereum += (valor_investido * 0.99) / conta->cotacao_ethereum;
         printf("Quantidade de Ethereum comprada: %.6f\n", conta->ethereum);
         salvar_transacao("Compra", "Ethereum");
+        exibir_menu(conta);
     } else if (coins == 3) {
         conta->ripple += (valor_investido * 0.99) / conta->cotacao_ripple;
         printf("Quantidade de Ripple comprada: %.6f\n", conta->ripple);
         salvar_transacao("Compra", "Ripple");
+        exibir_menu(conta);
     } else {
         printf("Criptomoeda inválida.\n");
     }
@@ -265,6 +268,7 @@ void vender_criptomoedas(Conta *conta) {
             conta->saldo += (qtd_vender * conta->cotacao_bitcoin) * 0.98;
             printf("Venda de Bitcoin realizada.\n");
             salvar_transacao("Venda", "Bitcoin");
+            exibir_menu(conta);
         } else {
             printf("Quantidade de Bitcoin insuficiente.\n");
         }
@@ -276,6 +280,7 @@ void vender_criptomoedas(Conta *conta) {
             conta->saldo += (qtd_vender * conta->cotacao_ethereum) * 0.99;
             printf("Venda de Ethereum realizada.\n");
             salvar_transacao("Venda", "Ethereum");
+            exibir_menu(conta);
         } else {
             printf("Quantidade de Ethereum insuficiente.\n");
         }
@@ -287,6 +292,7 @@ void vender_criptomoedas(Conta *conta) {
             conta->saldo += (qtd_vender * conta->cotacao_ripple) * 0.99;
             printf("Venda de Ripple realizada.\n");
             salvar_transacao("Venda", "Ripple");
+            exibir_menu(conta);
         } else {
             printf("Quantidade de Ripple insuficiente.\n");
         }
@@ -305,6 +311,7 @@ void atualizar_cotacao(Conta *conta) {
     printf("Ethereum: R$%.2f\n", conta->cotacao_ethereum);
     printf("Ripple: R$%.2f\n", conta->cotacao_ripple);
     salvar_transacao("Cotação", "Cotações atualizadas");
+    exibir_menu(conta);
 }
 
 // Função para sair
