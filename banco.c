@@ -164,3 +164,67 @@ void menu_administrador() {
     }
   }
 }
+// Função para exibir o menu do investidor
+void menu_investidor(Investidor *investidor) {
+  int opcao;
+
+  while (1) {
+    printf("\n--- MENU INVESTIDOR ---\n");
+    printf("1. Consultar saldo\n");
+    printf("2. Consultar extrato\n");
+    printf("3. Depositar\n");
+    printf("4. Sacar\n");
+    printf("5. Comprar criptomoedas\n");
+    printf("6. Vender criptomoedas\n");
+    printf("7. Atualizar cotação\n");
+    printf("8. Sair\n");
+
+    printf("Escolha uma opção: ");
+    scanf("%d", &opcao);
+
+    switch (opcao) {
+      case 1:
+        printf("Saldo atual: R$%.2f\n", investidor->saldo);
+        break;
+      case 2:
+        consultar_extrato_investidor(investidor);
+        break;
+      case 3:
+        depositar(investidor);
+        break;
+      case 4:
+        sacar(investidor);
+        break;
+      case 5:
+        comprar_criptomoeda(investidor);
+        break;
+      case 6:
+        vender_criptomoeda(investidor);
+        break;
+      case 7:
+        atualizar_cotacao();
+        break;
+      case 8:
+        printf("Saindo do painel de investidor...\n");
+        painel_inicial();
+        break;
+      default:
+        printf("Opção inválida.\n");
+    }
+  }
+}
+
+// Função para depositar dinheiro na conta do investidor
+void depositar(Investidor *investidor) {
+  double valor;
+  printf("Informe o valor a ser depositado: ");
+  scanf("%lf", &valor);
+  if (valor > 0) {
+    investidor->saldo += valor;
+    salvar_dados_investidor(investidor);
+    salvar_transacao(investidor->cpf, "Depósito", valor);
+    printf("Depósito de R$%.2f realizado com sucesso.\n", valor);
+  } else {
+    printf("Valor inválido para depósito.\n");
+  }
+}
