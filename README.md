@@ -1,6 +1,57 @@
-Projeto Banco de Criptomoedas em C . Nomes -Pedro de Oliveira Schwank RA: 24.124.052-2 -Felipe Franco Falcon RA: 24.124.035-7 -Leonardo Pera Chacon Guadagni RA:24.124.022-5 . Funções: Funções principais do sistema bancário: exibir_menu: Mostra o menu principal do sistema e permite que o usuário escolha uma operação. consultar_saldo: Exibe o saldo da conta, incluindo criptomoedas. ver_extrato: Lê e exibe o histórico de transações do arquivo extrato.txt. depositar: Permite o depósito de um valor em reais na conta. sacar: Permite o saque de um valor da conta. comprar_criptomoedas: O usuário pode investir seu saldo em criptomoedas. vender_criptomoedas: O usuário pode vender suas criptomoedas para aumentar o saldo em reais. atualizar_cotacao: Atualiza as cotações das criptomoedas para valores aleatórios. sair: Encerra o programa. autenticacao: Realiza a verificaçao do CPF e senha. 
-saldo.txt: Armazena as informações da conta (saldo e criptomoedas). extrato.txt: Armazena o histórico de transações (depósitos, saques, compra/venda de criptomoedas, etc.). 
+Projeto Banco de Criptomoedas em C . Nomes -Pedro de Oliveira Schwank RA: 24.124.052-2 -Felipe Franco Falcon RA: 24.124.035-7 -Leonardo Pera Chacon Guadagni RA:24.124.022-5 . 
+Sistema de Investimentos - Gerenciamento de Criptomoedas e Investidores
+Este programa implementa uma plataforma em C para gerenciar investidores e suas operações com criptomoedas. Ele oferece funcionalidades tanto para administradores quanto para investidores, permitindo operações como cadastro, exclusão, consulta de saldos e extratos, além da compra e venda de criptomoedas.
 
-. Processo de funcionamento: Autenticação: Ao iniciar, o programa pede um CPF e senha. Se o login for bem-sucedido, o saldo da conta é carregado. Operações: O usuário pode escolher as operações através do menu, como consultar saldo, depositar, sacar ou realizar transações com criptomoedas. Transações e extrato: Cada operação é registrada no arquivo de extrato com data e hora. Cotação: As cotações de criptomoedas são simuladas e podem ser atualizadas com valores aleatórios em intervalos predefinidos. Finalização: O programa pode ser encerrado pela opção "Sair" no menu principal.
+O sistema é dividido em dois perfis principais: Administrador e Investidor.
 
-. Objetivo do projeto: sistema básico de gerenciamento financeiro com operações em criptomoedas, com dados salvos em arquivo txt
+Funcionalidades
+Administrador
+O administrador possui privilégios para gerenciar os investidores e as criptomoedas cadastradas no sistema. O acesso é realizado por meio de uma senha fixa e predeterminada:
+
+CPF: 12345678900
+Senha: 123456
+As principais ações disponíveis para o administrador incluem:
+
+Cadastrar e excluir investidores.
+Consultar saldo e extrato de qualquer investidor.
+Cadastrar, excluir e atualizar a cotação de criptomoedas.
+Gerenciar taxas de compra e venda de cada criptomoeda.
+Investidor
+Os investidores podem realizar transações financeiras e acessar suas informações pessoais após o login. Suas ações disponíveis incluem:
+
+Consultar saldo e extrato pessoal.
+Depositar e sacar dinheiro.
+Comprar e vender criptomoedas com base nas cotações e taxas aplicadas.
+Estrutura de Dados
+Os dados são armazenados em arquivos de texto simples:
+
+investidores.txt: Registra os dados de todos os investidores, incluindo nome, CPF, senha, saldo e a quantidade de criptomoedas que possuem.
+criptomoedas.txt: Contém informações sobre as criptomoedas cadastradas, como cotação atual e taxas de compra e venda.
+<cpf>_extrato.txt: Armazena o histórico de transações de cada investidor, como depósitos, saques, compras e vendas.
+Como Funciona
+Ao iniciar o sistema, o usuário é direcionado para um painel inicial onde escolhe entre:
+
+Acessar o painel do administrador.
+Acessar o painel de investidor.
+Cadastrar um novo investidor.
+O administrador usa as credenciais fixas para acessar suas funcionalidades, enquanto os investidores fazem login com seus dados pessoais cadastrados.
+
+Operações com Criptomoedas
+O sistema permite:
+
+Cadastro de novas criptomoedas: Nome, cotação inicial, e taxas de compra/venda.
+Compra e venda de criptomoedas: Realizadas pelos investidores com base no saldo disponível.
+Atualização automática das cotações: Simula variações no mercado financeiro, gerando valores aleatórios entre 90% e 110% da cotação atual.
+Observações
+A senha fixa do administrador foi incluída como funcionalidade básica para testes e pode ser modificada para maior segurança.
+O sistema utiliza arquivos de texto simples para armazenamento, sendo uma solução educativa e não recomendada para produção sem melhorias de segurança, como criptografia de senhas.
+Execução
+Compile o programa:
+bash
+Copiar código
+gcc sistema_investimentos.c -o sistema_investimentos
+Execute:
+bash
+Copiar código
+./sistema_investimentos
+Com isso, o sistema estará pronto para uso, permitindo que administradores e investidores explorem todas as funcionalidades disponíveis.
