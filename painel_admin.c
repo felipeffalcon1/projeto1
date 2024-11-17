@@ -148,3 +148,69 @@ void excluir_investidor() {
     printf("Operação cancelada.\n");
   }
 }
+
+void consultar_saldo_investidor() {
+  char cpf[12];
+  Investidor investidor;
+
+  printf("Informe o CPF do investidor: ");
+  scanf("%11s", cpf);
+
+  carregar_dados_investidor(&investidor, cpf);
+  if (strlen(investidor.cpf) == 0) {
+    printf("Investidor não encontrado.\n");
+    return;
+  }
+
+  printf("Saldo de %s (CPF: %s): R$%.2f\n", investidor.nome, investidor.cpf,
+         investidor.saldo);
+}
+
+void consultar_extrato_admin() {
+  char cpf[12];
+  char linha[256];
+  FILE *arquivo;
+
+  printf("Informe o CPF do investidor: ");
+  scanf("%11s", cpf);
+
+  char filename[20];
+  snprintf(filename, sizeof(filename), "%s_extrato.txt", cpf);
+  arquivo = fopen(filename, "r");
+
+  if (arquivo == NULL) {
+    printf("Extrato não encontrado para o CPF informado.\n");
+    return;
+  }
+
+  printf("\n--- EXTRATO DE %s ---\n", cpf);
+  while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+    printf("%s", linha);
+  }
+  fclose(arquivo);
+}
+
+void cadastrar_criptomoeda() {
+  Criptomoeda cripto;
+  FILE *arquivo = fopen("criptomoedas.txt", "a");
+
+  if (!arquivo) {
+    printf("Erro ao abrir o arquivo de criptomoedas.\n");
+    return;
+  }
+
+  printf("Informe o nome da criptomoeda: ");
+  scanf("%19s", cripto.nome);
+  printf("Informe a cotação inicial: ");
+  scanf("%lf", &cripto.cotacao);
+  printf("Informe a taxa de compra (em decimal, ex: 0.02 para 2%%): ");
+  scanf("%lf", &cripto.taxa_compra);
+  printf("Informe a taxa de venda (em decimal, ex: 0.02 para 2%%): ");
+  scanf("%lf", &cripto.taxa_venda);
+
+  fprintf(arquivo, "%s,%.2f,%.2f,%.2f\n", cripto.nome, cripto.cotacao,
+          cripto.taxa_compra, cripto.taxa_venda);
+  fclose(arquivo);
+
+  printf("Criptomoeda cadastrada com sucesso.\n");
+}
