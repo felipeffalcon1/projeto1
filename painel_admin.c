@@ -214,3 +214,75 @@ void cadastrar_criptomoeda() {
 
   printf("Criptomoeda cadastrada com sucesso.\n");
 }
+
+    void excluir_criptomoeda() {
+      char nome[20];
+      char confirma;
+      Criptomoeda cripto;
+      FILE *arquivo, *temp;
+
+      printf("Informe o nome da criptomoeda a ser excluída: ");
+      scanf("%19s", nome);
+
+      arquivo = fopen("criptomoedas.txt", "r");
+      temp = fopen("temp.txt", "w");
+
+      if (!arquivo || !temp) {
+        printf("Erro ao abrir o arquivo de criptomoedas.\n");
+        return;
+      }
+
+      int encontrou = 0;
+      while (fscanf(arquivo, "%[^,],%lf,%lf,%lf\n", cripto.nome, &cripto.cotacao, &cripto.taxa_compra, &cripto.taxa_venda) != EOF) {
+        if (strcmp(cripto.nome, nome) == 0) {
+          printf("Criptomoeda encontrada: %s - Cotação: %.2f - Taxa Compra: %.2f - Taxa Venda: %.2f\n", cripto.nome, cripto.cotacao, cripto.taxa_compra, cripto.taxa_venda);
+          printf("Confirma a exclusão? (s/n): ");
+          scanf(" %c", &confirma);
+
+          if (confirma == 's') {
+            encontrou = 1;
+            printf("Criptomoeda excluída com sucesso.\n");
+          } else {
+            fprintf(temp, "%s,%.2f,%.2f,%.2f\n", cripto.nome, cripto.cotacao, cripto.taxa_compra, cripto.taxa_venda);
+          }
+        } else {
+          fprintf(temp, "%s,%.2f,%.2f,%.2f\n", cripto.nome, cripto.cotacao, cripto.taxa_compra, cripto.taxa_venda);
+        }
+      }
+
+      if (!encontrou) {
+        printf("Criptomoeda não encontrada.\n");
+      }
+
+      fclose(arquivo);
+      fclose(temp);
+      remove("criptomoedas.txt");
+      rename("temp.txt", "criptomoedas.txt");
+    }
+
+
+
+void atualizar_cotacao() {
+  FILE *arquivo = fopen("criptomoedas.txt", "r");
+  FILE *temp = fopen("temp.txt", "w");
+  Criptomoeda cripto;
+
+  if (!arquivo || !temp) {
+    printf("Erro ao abrir o arquivo de criptomoedas.\n");
+    return;
+  }
+
+  printf("Atualizando cotações das criptomoedas...\n");
+
+  while (fscanf(arquivo, "%[^,],%lf,%lf,%lf\n", cripto.nome, &cripto.cotacao, &cripto.taxa_compra, &cripto.taxa_venda) != EOF) {
+    cripto.cotacao = random_double(cripto.cotacao * 0.9, cripto.cotacao * 1.1);
+    fprintf(temp, "%s,%.2f,%.2f,%.2f\n", cripto.nome, cripto.cotacao, cripto.taxa_compra, cripto.taxa_venda);
+  }
+
+  fclose(arquivo);
+  fclose(temp);
+  remove("criptomoedas.txt");
+  rename("temp.txt", "criptomoedas.txt");
+
+  printf("Cotações atualizadas com sucesso.\n");
+}
